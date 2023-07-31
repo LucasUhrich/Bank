@@ -1,7 +1,5 @@
 package com.project.bank.Dao.Response;
 
-import com.project.bank.Entity.Bank;
-
 import java.io.Serializable;
 
 public class BranchResponseDto implements Serializable {
@@ -9,17 +7,17 @@ public class BranchResponseDto implements Serializable {
     private  String country;
     private  String province;
     private  String city;
-    private  BankResponseDto bankResponseDto;
+    private  BankResponseDto bank;
 
     public BranchResponseDto() {
     }
 
-    public BranchResponseDto(String id, String country, String province, String city, BankResponseDto bankResponseDto) {
+    public BranchResponseDto(String id, String country, String province, String city, BankResponseDto bank) {
         this.id = id;
         this.country = country;
         this.province = province;
         this.city = city;
-        this.bankResponseDto = bankResponseDto;
+        this.bank = bank;
     }
 
     public String getId() {
@@ -54,11 +52,11 @@ public class BranchResponseDto implements Serializable {
         this.city = city;
     }
 
-    public BankResponseDto getBankResponseDto() {
-        return bankResponseDto;
+    public BankResponseDto getBank() {
+        return bank;
     }
 
-    public void setBankResponseDto(BankResponseDto bankResponseDto) {
-        this.bankResponseDto = bankResponseDto;
+    public void setBank(BankResponseDto bank) {
+        this.bank = bank;
     }
 }

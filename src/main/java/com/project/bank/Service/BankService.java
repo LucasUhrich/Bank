@@ -2,6 +2,7 @@ package com.project.bank.Service;
 
 import com.project.bank.Dao.Request.BankRequestDto;
 import com.project.bank.Dao.Response.BankResponseDto;
+import com.project.bank.Dao.Response.BranchResponseDto;
 import com.project.bank.Entity.Bank;
 import com.project.bank.Repository.BankRepository;
 import com.project.bank.Response.ResponseApi;
@@ -15,7 +16,9 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Validated
@@ -45,6 +48,18 @@ public class BankService {
             responseApi.setData(e.getMessage());
             return ResponseEntity.badRequest().body(responseApi);
         }
+    }
+
+    public ResponseEntity<ResponseApi> getAll() {
+        ResponseApi responseApi = new ResponseApi();
+        List<BankResponseDto> list = bankRepository.findAll()
+                .stream()
+                .map(bank -> modelMapper.map(bank,BankResponseDto.class))
+                .collect(Collectors.toList());
+        responseApi.setStatus(HttpStatus.OK.toString());
+        responseApi.setMessage("All Banks");
+        responseApi.setData(list);
+        return ResponseEntity.ok(responseApi);
     }
 
 }

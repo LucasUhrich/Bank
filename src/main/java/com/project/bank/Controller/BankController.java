@@ -7,10 +7,7 @@ import com.project.bank.Service.BankService;
 import com.project.bank.Service.BrachService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/bank")
@@ -28,8 +25,17 @@ public class BankController {
     public ResponseEntity<ResponseApi> createBank(@RequestBody BankRequestDto requestDto){
         return bankService.createBank(requestDto);
     }
+    @GetMapping("/getall")
+    public ResponseEntity<ResponseApi> getAllBanks(){
+        return bankService.getAll();
+    }
     @PostMapping("/{name}/createbranch")
     public ResponseEntity<ResponseApi>crateBranch(@PathVariable("name") String bankName, @RequestBody BranchRequestDto requestDto){
         return brachService.createBranch(bankName,requestDto);
+    }
+
+    @GetMapping("/{name}/getbranches")
+    public ResponseEntity<ResponseApi> getAllBranches(@PathVariable("name") String bankName){
+        return brachService.getAll(bankName);
     }
 }

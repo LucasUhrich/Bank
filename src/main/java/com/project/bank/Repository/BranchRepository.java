@@ -4,9 +4,11 @@ import com.project.bank.Entity.Branch;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface BranchRepository extends JpaRepository<Branch, String> {
 
-    Branch findByCity(String city);
+    List<Branch> findByBank_name(String bankName);
 
 }
