@@ -1,16 +1,16 @@
-package com.project.bank.Dao.Response;
+package com.project.bank.Dto.Response;
 
 import java.io.Serializable;
 import java.util.Date;
 
-public class Saving_AccoutDto implements Serializable {
+public class SavingAccoutResponseDto implements Serializable {
     private  String id;
     private  String account_number;
     private  double balance;
     private  Date opening_date;
     private  double interest_rate;
 
-    public Saving_AccoutDto(String id, String account_number, double balance, Date opening_date, double interest_rate) {
+    public SavingAccoutResponseDto(String id, String account_number, double balance, Date opening_date, double interest_rate) {
         this.id = id;
         this.account_number = account_number;
         this.balance = balance;
@@ -18,7 +18,7 @@ public class Saving_AccoutDto implements Serializable {
         this.interest_rate = interest_rate;
     }
 
-    public Saving_AccoutDto() {
+    public SavingAccoutResponseDto() {
     }
 
     public String getId() {

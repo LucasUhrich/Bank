@@ -1,8 +1,7 @@
 package com.project.bank.Service;
 
-import com.project.bank.Dao.Request.BankRequestDto;
-import com.project.bank.Dao.Response.BankResponseDto;
-import com.project.bank.Dao.Response.BranchResponseDto;
+import com.project.bank.Dto.Request.BankRequestDto;
+import com.project.bank.Dto.Response.BankResponseDto;
 import com.project.bank.Entity.Bank;
 import com.project.bank.Repository.BankRepository;
 import com.project.bank.Response.ResponseApi;
@@ -12,9 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 
-import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;

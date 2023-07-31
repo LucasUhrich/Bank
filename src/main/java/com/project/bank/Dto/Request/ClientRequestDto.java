@@ -1,4 +1,4 @@
-package com.project.bank.Dao.Request;
+package com.project.bank.Dto.Request;
 
 import java.io.Serializable;
 import java.util.Date;

@@ -1,15 +1,15 @@
-package com.project.bank.Dao.Request;
+package com.project.bank.Dto.Request;
 
 import java.io.Serializable;
 
-public class Current_AccoutDto implements Serializable {
+public class CurrentAccountRequestDto implements Serializable {
     private  String account_number;
 
-    public Current_AccoutDto(String account_number) {
+    public CurrentAccountRequestDto(String account_number) {
         this.account_number = account_number;
     }
 
-    public Current_AccoutDto() {
+    public CurrentAccountRequestDto() {
     }
 
     public String getAccount_number() {

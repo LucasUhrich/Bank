@@ -1,4 +1,4 @@
-package com.project.bank.Dao.Response;
+package com.project.bank.Dto.Response;
 
 import java.io.Serializable;
 

@@ -1,8 +1,8 @@
 package com.project.bank.Service;
 
-import com.project.bank.Dao.Request.BranchRequestDto;
-import com.project.bank.Dao.Response.BankResponseDto;
-import com.project.bank.Dao.Response.BranchResponseDto;
+import com.project.bank.Dto.Request.BranchRequestDto;
+import com.project.bank.Dto.Response.BankResponseDto;
+import com.project.bank.Dto.Response.BranchResponseDto;
 import com.project.bank.Entity.Bank;
 import com.project.bank.Entity.Branch;
 import com.project.bank.Repository.BankRepository;

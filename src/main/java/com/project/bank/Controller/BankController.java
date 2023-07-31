@@ -1,7 +1,7 @@
 package com.project.bank.Controller;
 
-import com.project.bank.Dao.Request.BankRequestDto;
-import com.project.bank.Dao.Request.BranchRequestDto;
+import com.project.bank.Dto.Request.BankRequestDto;
+import com.project.bank.Dto.Request.BranchRequestDto;
 import com.project.bank.Response.ResponseApi;
 import com.project.bank.Service.BankService;
 import com.project.bank.Service.BrachService;
@@ -14,11 +14,9 @@ import org.springframework.web.bind.annotation.*;
 public class BankController {
 
     private BankService bankService;
-    private BrachService brachService;
 
-    public BankController(BankService bankService, BrachService brachService) {
+    public BankController(BankService bankService) {
         this.bankService = bankService;
-        this.brachService = brachService;
     }
 
     @PostMapping("/create")
@@ -29,13 +27,5 @@ public class BankController {
     public ResponseEntity<ResponseApi> getAllBanks(){
         return bankService.getAll();
     }
-    @PostMapping("/{name}/createbranch")
-    public ResponseEntity<ResponseApi>crateBranch(@PathVariable("name") String bankName, @RequestBody BranchRequestDto requestDto){
-        return brachService.createBranch(bankName,requestDto);
-    }
 
-    @GetMapping("/{name}/getbranches")
-    public ResponseEntity<ResponseApi> getAllBranches(@PathVariable("name") String bankName){
-        return brachService.getAll(bankName);
-    }
 }

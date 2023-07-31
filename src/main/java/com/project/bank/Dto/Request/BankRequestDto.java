@@ -1,4 +1,4 @@
-package com.project.bank.Dao.Request;
+package com.project.bank.Dto.Request;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;

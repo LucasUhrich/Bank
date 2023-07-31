@@ -1,17 +1,17 @@
-package com.project.bank.Dao.Request;
+package com.project.bank.Dto.Request;
 
 import java.io.Serializable;
 
-public class Saving_AccoutDto implements Serializable {
+public class SavingAccountRequestDto implements Serializable {
     private  String account_number;
     private  double interest_rate;
 
-    public Saving_AccoutDto(String account_number, double interest_rate) {
+    public SavingAccountRequestDto(String account_number, double interest_rate) {
         this.account_number = account_number;
         this.interest_rate = interest_rate;
     }
 
-    public Saving_AccoutDto() {
+    public SavingAccountRequestDto() {
     }
 
     public String getAccount_number() {

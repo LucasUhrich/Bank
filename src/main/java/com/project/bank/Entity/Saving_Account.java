@@ -4,14 +4,14 @@ import javax.persistence.Entity;
 import java.util.Date;
 
 @Entity
-public class Saving_Accout extends Account {
+public class Saving_Account extends Account {
 
     private double interest_rate;
 
-    public Saving_Accout() {
+    public Saving_Account() {
     }
 
-    public Saving_Accout(String id, String account_number, double balance, Date opening_date, Branch branch, Client client, double interest_rate) {
+    public Saving_Account(String id, String account_number, double balance, Date opening_date, Branch branch, Client client, double interest_rate) {
         super(id, account_number, balance, opening_date, branch, client);
         this.interest_rate = interest_rate;
     }

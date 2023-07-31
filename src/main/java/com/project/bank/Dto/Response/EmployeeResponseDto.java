@@ -1,11 +1,11 @@
-package com.project.bank.Dao.Response;
+package com.project.bank.Dto.Response;
 
 import com.project.bank.Enum.JobTitle;
 import com.project.bank.Enum.Rol;
 
 import java.io.Serializable;
 
-public class EmployeeDto implements Serializable {
+public class EmployeeResponseDto implements Serializable {
     private  String id;
     private  String name;
     private  String surname;
@@ -13,7 +13,7 @@ public class EmployeeDto implements Serializable {
     private  boolean active;
     private  JobTitle cargo;
 
-    public EmployeeDto(String id, String name, String surname, Rol rol, boolean active, JobTitle cargo) {
+    public EmployeeResponseDto(String id, String name, String surname, Rol rol, boolean active, JobTitle cargo) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -22,7 +22,7 @@ public class EmployeeDto implements Serializable {
         this.cargo = cargo;
     }
 
-    public EmployeeDto() {
+    public EmployeeResponseDto() {
     }
 
     public String getId() {
