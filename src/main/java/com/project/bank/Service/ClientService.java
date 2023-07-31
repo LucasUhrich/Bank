@@ -22,7 +22,9 @@ import org.springframework.validation.annotation.Validated;
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Validated
@@ -71,4 +73,26 @@ public class ClientService {
             return ResponseEntity.badRequest().body(responseApi);
         }
     }
+
+    public ResponseEntity<ResponseApi> getAllbyBranchId(String id){
+        ResponseApi responseApi = new ResponseApi();
+        Optional<Branch> branch = branchRepository.findById(id);
+        try {
+            if(branch.isEmpty()) throw new EntityNotFoundException("Branch with id " + id + " not found");
+            List<ClientResponseDto> list = clientRepository.findByBranch_id(id)
+                    .stream()
+                    .map(client -> modelMapper.map(client, ClientResponseDto.class))
+                    .collect(Collectors.toList());
+            responseApi.setStatus(HttpStatus.OK.toString());
+            responseApi.setMessage("All Clients from Branch: " + id);
+            responseApi.setData(list);
+            return ResponseEntity.ok(responseApi);
+        }catch (EntityNotFoundException e){
+            responseApi.setStatus(HttpStatus.NOT_FOUND.toString());
+            responseApi.setMessage("Error");
+            responseApi.setData(e.getMessage());
+            return ResponseEntity.badRequest().body(responseApi);
+        }
+    }
+
 }
