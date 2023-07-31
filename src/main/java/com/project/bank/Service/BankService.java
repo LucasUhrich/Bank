@@ -10,21 +10,26 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 
+import javax.validation.ConstraintViolationException;
+import javax.validation.Valid;
 import java.util.Optional;
 
 @Service
+@Validated
 public class BankService {
 
     private BankRepository bankRepository;
     private ModelMapper modelMapper;
 
-    public BankService(BankRepository bankRepository, ModelMapper modelMapper) {
+    public BankService(BankRepository bankRepository) {
         this.bankRepository = bankRepository;
         this.modelMapper = new ModelMapper();
     }
 
-    public ResponseEntity<ResponseApi> createBank(BankRequestDto requestDto){
+    public ResponseEntity<ResponseApi> createBank(@Valid BankRequestDto requestDto){
         ResponseApi responseApi = new ResponseApi();
         Optional<Bank> existBank = Optional.ofNullable(bankRepository.findByName(requestDto.getName()));
         try {
