@@ -5,10 +5,7 @@ import com.project.bank.Response.ResponseApi;
 import com.project.bank.Service.EmployeeService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/bank")
@@ -23,5 +20,10 @@ public class EmployeeController {
     @PostMapping("/{branchId}/createEmployee")
     public ResponseEntity<ResponseApi> createEmployee(@PathVariable("branchId") String branchId, @RequestBody EmployeeRequestDto requestDto){
         return employeeService.createEmployee(branchId, requestDto);
+    }
+
+    @GetMapping("/{branchId}/getEmployees")
+    public ResponseEntity<ResponseApi> getAllByBranchId(@PathVariable("branchId") String branchId){
+        return employeeService.getAllbyBranchId(branchId);
     }
 }

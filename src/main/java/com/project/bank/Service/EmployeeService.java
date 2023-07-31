@@ -3,6 +3,7 @@ package com.project.bank.Service;
 import com.project.bank.Dto.Request.BankRequestDto;
 import com.project.bank.Dto.Request.EmployeeRequestDto;
 import com.project.bank.Dto.Response.BankResponseDto;
+import com.project.bank.Dto.Response.BranchResponseDto;
 import com.project.bank.Dto.Response.EmployeeResponseDto;
 import com.project.bank.Entity.Bank;
 import com.project.bank.Entity.Branch;
@@ -21,7 +22,9 @@ import org.springframework.validation.annotation.Validated;
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Validated
@@ -68,5 +71,24 @@ public class EmployeeService {
         }
     }
 
-    
+    public ResponseEntity<ResponseApi> getAllbyBranchId(String id){
+        ResponseApi responseApi = new ResponseApi();
+        Optional<Branch> branch = branchRepository.findById(id);
+        try {
+            if(branch.isEmpty()) throw new EntityNotFoundException("Branch with id " + id + " not found");
+            List<EmployeeResponseDto> list = employeeRepository.findByBranch_id(id)
+                    .stream()
+                    .map(employee -> modelMapper.map(employee, EmployeeResponseDto.class))
+                    .collect(Collectors.toList());
+            responseApi.setStatus(HttpStatus.OK.toString());
+            responseApi.setMessage("All Employees from " + id);
+            responseApi.setData(list);
+            return ResponseEntity.ok(responseApi);
+        }catch (EntityNotFoundException e){
+            responseApi.setStatus(HttpStatus.NOT_FOUND.toString());
+            responseApi.setMessage("Error");
+            responseApi.setData(e.getMessage());
+            return ResponseEntity.badRequest().body(responseApi);
+        }
+    }
 }

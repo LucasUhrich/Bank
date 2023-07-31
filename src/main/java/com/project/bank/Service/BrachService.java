@@ -77,6 +77,5 @@ public class BrachService {
             responseApi.setData(e.getMessage());
             return ResponseEntity.badRequest().body(responseApi);
         }
-
     }
 }
