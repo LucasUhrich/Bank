@@ -9,17 +9,15 @@ public class ClientResponseDto implements Serializable {
     private  String name;
     private  String surname;
     private  Rol rol;
-    private  Date registration;
 
-    public ClientResponseDto(String id, String name, String surname, Rol rol, Date registration) {
+    public ClientResponseDto() {
+    }
+
+    public ClientResponseDto(String id, String name, String surname, Rol rol) {
         this.id = id;
         this.name = name;
         this.surname = surname;
         this.rol = rol;
-        this.registration = registration;
-    }
-
-    public ClientResponseDto() {
     }
 
     public String getId() {
@@ -52,13 +50,5 @@ public class ClientResponseDto implements Serializable {
 
     public void setRol(Rol rol) {
         this.rol = rol;
-    }
-
-    public Date getRegistration() {
-        return registration;
-    }
-
-    public void setRegistration(Date registration) {
-        this.registration = registration;
     }
 }

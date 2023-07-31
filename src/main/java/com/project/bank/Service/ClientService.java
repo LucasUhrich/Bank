@@ -1,8 +1,74 @@
 package com.project.bank.Service;
 
+import com.project.bank.Dto.Request.ClientRequestDto;
+import com.project.bank.Dto.Request.EmployeeRequestDto;
+import com.project.bank.Dto.Response.ClientResponseDto;
+import com.project.bank.Dto.Response.EmployeeResponseDto;
+import com.project.bank.Entity.Branch;
+import com.project.bank.Entity.Client;
+import com.project.bank.Entity.Employee;
+import com.project.bank.Enum.Rol;
+import com.project.bank.Repository.BranchRepository;
+import com.project.bank.Repository.ClientRepository;
+import com.project.bank.Repository.EmployeeRepository;
+import com.project.bank.Response.ResponseApi;
+import org.modelmapper.ModelMapper;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
+
+import javax.persistence.EntityNotFoundException;
+import javax.validation.Valid;
+import java.util.Date;
+import java.util.Optional;
 
 @Service
+@Validated
 public class ClientService {
 
+    private EmployeeRepository employeeRepository;
+    private ModelMapper modelMapper;
+    private BranchRepository branchRepository;
+    private ClientRepository clientRepository;
+
+    public ClientService(EmployeeRepository employeeRepository, BranchRepository branchRepository, ClientRepository clientRepository) {
+        this.employeeRepository = employeeRepository;
+        this.modelMapper = new ModelMapper();
+        this.branchRepository = branchRepository;
+        this.clientRepository = clientRepository;
+    }
+
+    public ResponseEntity<ResponseApi> createClient(String employeeId, @Valid ClientRequestDto clientRequestDto){
+        ResponseApi responseApi = new ResponseApi();
+        Optional<Client> existClient = Optional.ofNullable(clientRepository.findByEmail(clientRequestDto.getEmail()));
+        Optional<Employee> employee = employeeRepository.findById(employeeId);
+        try {
+            if(employee.isEmpty()) throw new EntityNotFoundException("Employee with id " + employeeId + " not found");
+            if (existClient.isPresent()) throw new DataIntegrityViolationException("Client with email " + clientRequestDto.getEmail() + " already exists");
+
+            Client client = modelMapper.map(clientRequestDto, Client.class);
+            client.setActive(true);
+            client.setRol(Rol.CLIENT);
+            client.setRegistration(new Date());
+            client.setBranch(employee.get().getBranch());
+
+            responseApi.setMessage("Client created succesfully");
+            responseApi.setStatus(HttpStatus.CREATED.toString());
+            responseApi.setData(modelMapper.map(clientRepository.save(client), ClientResponseDto.class));
+
+            return ResponseEntity.ok(responseApi);
+        }catch (DataIntegrityViolationException e){
+            responseApi.setMessage("Error");
+            responseApi.setStatus(HttpStatus.CONFLICT.toString());
+            responseApi.setData(e.getMessage());
+            return ResponseEntity.badRequest().body(responseApi);
+        }catch (EntityNotFoundException e){
+            responseApi.setMessage("Error");
+            responseApi.setStatus(HttpStatus.NOT_FOUND.toString());
+            responseApi.setData(e.getMessage());
+            return ResponseEntity.badRequest().body(responseApi);
+        }
+    }
 }

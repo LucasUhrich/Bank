@@ -1,5 +1,7 @@
 package com.project.bank.Dto.Request;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -8,6 +10,7 @@ public class ClientRequestDto implements Serializable {
     private  String surname;
     private  String email;
     private  String password;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private  Date birth_date;
     private  String address;
     private  String phone;
