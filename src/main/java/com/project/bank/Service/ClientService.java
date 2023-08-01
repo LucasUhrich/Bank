@@ -3,14 +3,11 @@ package com.project.bank.Service;
 import com.project.bank.Dto.Request.ClientRequestDto;
 import com.project.bank.Dto.Request.EmployeeRequestDto;
 import com.project.bank.Dto.Response.ClientResponseDto;
+import com.project.bank.Dto.Response.CurrentAccoutResponseDto;
 import com.project.bank.Dto.Response.EmployeeResponseDto;
-import com.project.bank.Entity.Branch;
-import com.project.bank.Entity.Client;
-import com.project.bank.Entity.Employee;
+import com.project.bank.Entity.*;
 import com.project.bank.Enum.Rol;
-import com.project.bank.Repository.BranchRepository;
-import com.project.bank.Repository.ClientRepository;
-import com.project.bank.Repository.EmployeeRepository;
+import com.project.bank.Repository.*;
 import com.project.bank.Response.ResponseApi;
 import org.modelmapper.ModelMapper;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -34,12 +31,16 @@ public class ClientService {
     private ModelMapper modelMapper;
     private BranchRepository branchRepository;
     private ClientRepository clientRepository;
+    private CurrentAccountRepository currentAccountRepository;
+    private SavingAccountRepository savingAccountRepository;
 
-    public ClientService(EmployeeRepository employeeRepository, BranchRepository branchRepository, ClientRepository clientRepository) {
+    public ClientService(EmployeeRepository employeeRepository, BranchRepository branchRepository, ClientRepository clientRepository, CurrentAccountRepository currentAccountRepository, SavingAccountRepository savingAccountRepository) {
         this.employeeRepository = employeeRepository;
         this.modelMapper = new ModelMapper();
         this.branchRepository = branchRepository;
         this.clientRepository = clientRepository;
+        this.currentAccountRepository = currentAccountRepository;
+        this.savingAccountRepository = savingAccountRepository;
     }
 
     public ResponseEntity<ResponseApi> createClient(String employeeId, @Valid ClientRequestDto clientRequestDto){
@@ -94,5 +95,7 @@ public class ClientService {
             return ResponseEntity.badRequest().body(responseApi);
         }
     }
+
+
 
 }

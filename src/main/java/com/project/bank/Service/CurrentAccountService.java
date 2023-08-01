@@ -14,7 +14,9 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CurrentAccountService {
@@ -63,6 +65,29 @@ public class CurrentAccountService {
             responseApi.setMessage("Error");
             responseApi.setData(e.getMessage());
 
+            return ResponseEntity.badRequest().body(responseApi);
+        }
+    }
+
+    public ResponseEntity<ResponseApi> getCurrentAccounts(String id){
+        ResponseApi responseApi = new ResponseApi();
+        Optional<Client> client = clientRepository.findById(id);
+        try {
+            if(client.isEmpty()) throw new EntityNotFoundException("Client with id " + id + " not found");
+
+            List<CurrentAccoutResponseDto> accounts = currentAccountRepository.findByClient_id(id)
+                    .stream()
+                    .map(current_account -> modelMapper.map(current_account,CurrentAccoutResponseDto.class))
+                    .collect(Collectors.toList());
+
+            responseApi.setStatus(HttpStatus.OK.toString());
+            responseApi.setMessage("All Current Accounts from Client: " + id);
+            responseApi.setData(accounts);
+            return ResponseEntity.ok(responseApi);
+        }catch (EntityNotFoundException e){
+            responseApi.setStatus(HttpStatus.NOT_FOUND.toString());
+            responseApi.setMessage("Error");
+            responseApi.setData(e.getMessage());
             return ResponseEntity.badRequest().body(responseApi);
         }
     }
