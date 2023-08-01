@@ -17,7 +17,9 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static com.project.bank.Utils.AccountNumberGenerator.accountNumberGenerator;
 
@@ -58,4 +60,28 @@ public class SavingAccountService {
             return ResponseEntity.badRequest().body(responseApi);
         }
     }
+
+    public ResponseEntity<ResponseApi> getSavingAccounts(String id){
+        ResponseApi responseApi = new ResponseApi();
+        Optional<Client> client = clientRepository.findById(id);
+        try {
+            if(client.isEmpty()) throw new EntityNotFoundException("Client with id " + id + " not found");
+
+            List<SavingAccoutResponseDto> accounts = savingAccountRepository.findByClient_id(id)
+                    .stream()
+                    .map(saving_account -> modelMapper.map(saving_account,SavingAccoutResponseDto.class))
+                    .collect(Collectors.toList());
+
+            responseApi.setStatus(HttpStatus.OK.toString());
+            responseApi.setMessage("All Saving Accounts from Client: " + id);
+            responseApi.setData(accounts);
+            return ResponseEntity.ok(responseApi);
+        }catch (EntityNotFoundException e){
+            responseApi.setStatus(HttpStatus.NOT_FOUND.toString());
+            responseApi.setMessage("Error");
+            responseApi.setData(e.getMessage());
+            return ResponseEntity.badRequest().body(responseApi);
+        }
+    }
+
 }
