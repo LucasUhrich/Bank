@@ -68,7 +68,19 @@ public class TransactionService {
         }
         return Optional.ofNullable(savingAccountRepository.findByAccount_number(requestDto.getReceive_account()));
     }
-    public ResponseEntity<ResponseApi> CurrentAccountTransaction(@Valid TransactionRequestDto requestDto){
+
+    private void save(Optional sender, Optional receiver){
+        if(sender.get() instanceof Current_Account){
+            currentAccountRepository.save((Current_Account) sender.get());
+            currentAccountRepository.save((Current_Account) receiver.get());
+        }
+        if (sender.get() instanceof Saving_Account){
+            savingAccountRepository.save((Saving_Account) sender.get());
+            savingAccountRepository.save((Saving_Account) receiver.get());
+        }
+    }
+
+    public ResponseEntity<ResponseApi> createTransaction(@Valid TransactionRequestDto requestDto){
         ResponseApi responseApi = new ResponseApi();
         Optional<Account> sender = getSenderAccount(requestDto);
         Optional<Account> receiver = getReceiverAccount(requestDto);
@@ -79,14 +91,7 @@ public class TransactionService {
             sender.get().setBalance(sender.get().getBalance() - requestDto.getBalance());
             receiver.get().setBalance(receiver.get().getBalance() + requestDto.getBalance());
 
-            if(sender.get() instanceof Current_Account){
-                currentAccountRepository.save((Current_Account) sender.get());
-                currentAccountRepository.save((Current_Account) receiver.get());
-            }
-            if (sender.get() instanceof Saving_Account){
-                savingAccountRepository.save((Saving_Account) sender.get());
-                savingAccountRepository.save((Saving_Account) receiver.get());
-            }
+            save(sender,receiver);
 
             Transaction saved = modelMapper.map(requestDto, Transaction.class);
             saved.setBranch(sender.get().getBranch());
@@ -102,6 +107,11 @@ public class TransactionService {
             responseApi.setData(e.getMessage());
             return ResponseEntity.badRequest().body(responseApi);
         }
+    }
+
+    public ResponseEntity<ResponseApi>deposit(double Mount, String accountId){
+
+        return null;
     }
 
 }

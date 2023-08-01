@@ -21,6 +21,6 @@ public class TransactionController {
 
     @PostMapping("/transaction")
     public ResponseEntity<ResponseApi>currentAccountTransaction(@RequestBody TransactionRequestDto requestDto){
-        return transactionService.CurrentAccountTransaction(requestDto);
+        return transactionService.createTransaction(requestDto);
     }
 }
