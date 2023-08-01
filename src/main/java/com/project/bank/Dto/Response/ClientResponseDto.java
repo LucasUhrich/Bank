@@ -10,14 +10,17 @@ public class ClientResponseDto implements Serializable {
     private  String surname;
     private  Rol rol;
 
+    private boolean active;
+
     public ClientResponseDto() {
     }
 
-    public ClientResponseDto(String id, String name, String surname, Rol rol) {
+    public ClientResponseDto(String id, String name, String surname, Rol rol, boolean active) {
         this.id = id;
         this.name = name;
         this.surname = surname;
         this.rol = rol;
+        this.active = active;
     }
 
     public String getId() {
@@ -50,5 +53,13 @@ public class ClientResponseDto implements Serializable {
 
     public void setRol(Rol rol) {
         this.rol = rol;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }

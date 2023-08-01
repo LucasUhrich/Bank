@@ -61,14 +61,10 @@ public class BrachService {
             if(bank.isEmpty()) throw new EntityNotFoundException("Bank " + bankName + " not found");
             List<BranchResponseDto> list = branchRepository.findByBank_name(bankName)
                     .stream()
-                    .map(branch -> {
-                        BranchResponseDto branchResponseDto = modelMapper.map(branch, BranchResponseDto.class);
-                        branchResponseDto.setBank(modelMapper.map(branch.getBank(), BankResponseDto.class));
-                        return branchResponseDto;
-                    })
+                    .map(branch -> modelMapper.map(branch, BranchResponseDto.class))
                     .collect(Collectors.toList());
             responseApi.setStatus(HttpStatus.OK.toString());
-            responseApi.setMessage("All branches");
+            responseApi.setMessage("All branches from bank " + bankName);
             responseApi.setData(list);
             return ResponseEntity.ok(responseApi);
         }catch (EntityNotFoundException e){

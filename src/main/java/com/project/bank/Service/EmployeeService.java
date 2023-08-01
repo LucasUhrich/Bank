@@ -81,7 +81,7 @@ public class EmployeeService {
                     .map(employee -> modelMapper.map(employee, EmployeeResponseDto.class))
                     .collect(Collectors.toList());
             responseApi.setStatus(HttpStatus.OK.toString());
-            responseApi.setMessage("All Employees from " + id);
+            responseApi.setMessage("All Employees from branch: " + id);
             responseApi.setData(list);
             return ResponseEntity.ok(responseApi);
         }catch (EntityNotFoundException e){

@@ -7,17 +7,15 @@ public class BranchResponseDto implements Serializable {
     private  String country;
     private  String province;
     private  String city;
-    private  BankResponseDto bank;
 
     public BranchResponseDto() {
     }
 
-    public BranchResponseDto(String id, String country, String province, String city, BankResponseDto bank) {
+    public BranchResponseDto(String id, String country, String province, String city) {
         this.id = id;
         this.country = country;
         this.province = province;
         this.city = city;
-        this.bank = bank;
     }
 
     public String getId() {
@@ -50,13 +48,5 @@ public class BranchResponseDto implements Serializable {
 
     public void setCity(String city) {
         this.city = city;
-    }
-
-    public BankResponseDto getBank() {
-        return bank;
-    }
-
-    public void setBank(BankResponseDto bank) {
-        this.bank = bank;
     }
 }
