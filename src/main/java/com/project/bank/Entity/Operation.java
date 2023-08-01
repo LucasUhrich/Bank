@@ -21,6 +21,9 @@ public class Operation {
 
     private String account;
 
+    @Enumerated(EnumType.STRING)
+    private AccountType account_type;
+
     @ManyToOne
     @JoinColumn(name = "bank_id")
     private Bank bank;

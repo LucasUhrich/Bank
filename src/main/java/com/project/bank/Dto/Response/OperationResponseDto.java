@@ -1,5 +1,6 @@
 package com.project.bank.Dto.Response;
 
+import com.project.bank.Enum.AccountType;
 import com.project.bank.Enum.OperationType;
 
 import java.io.Serializable;
@@ -10,14 +11,17 @@ public class OperationResponseDto implements Serializable {
     private double mount;
     private String account;
 
+    private AccountType account_type;
+
     public OperationResponseDto() {
     }
 
-    public OperationResponseDto(String id, OperationType operation_type, double mount, String account) {
+    public OperationResponseDto(String id, OperationType operation_type, double mount, String account, AccountType account_type) {
         this.id = id;
         this.operation_type = operation_type;
         this.mount = mount;
         this.account = account;
+        this.account_type = account_type;
     }
 
     public String getId() {
@@ -50,5 +54,13 @@ public class OperationResponseDto implements Serializable {
 
     public void setAccount(String account) {
         this.account = account;
+    }
+
+    public AccountType getAccount_type() {
+        return account_type;
+    }
+
+    public void setAccount_type(AccountType account_type) {
+        this.account_type = account_type;
     }
 }

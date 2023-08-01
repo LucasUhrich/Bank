@@ -1,16 +1,12 @@
 package com.project.bank.Service;
 
+import com.project.bank.Dto.Request.OperationRequestDto;
 import com.project.bank.Dto.Request.TransactionRequestDto;
 import com.project.bank.Dto.Response.TransactionResponseDto;
-import com.project.bank.Entity.Account;
-import com.project.bank.Entity.Current_Account;
-import com.project.bank.Entity.Saving_Account;
-import com.project.bank.Entity.Transaction;
+import com.project.bank.Entity.*;
 import com.project.bank.Enum.AccountType;
-import com.project.bank.Repository.ClientRepository;
-import com.project.bank.Repository.CurrentAccountRepository;
-import com.project.bank.Repository.SavingAccountRepository;
-import com.project.bank.Repository.TransactionRepository;
+import com.project.bank.Enum.OperationType;
+import com.project.bank.Repository.*;
 import com.project.bank.Response.ResponseApi;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
@@ -35,7 +31,7 @@ public class TransactionService {
         this.currentAccountRepository = currentAccountRepository;
         this.savingAccountRepository = savingAccountRepository;
         this.clientRepository = clientRepository;
-        this.modelMapper = new ModelMapper();
+        this.modelMapper =new ModelMapper();
     }
 
     private void validateSenderAccount(Optional sender, TransactionRequestDto requestDto){
@@ -108,10 +104,4 @@ public class TransactionService {
             return ResponseEntity.badRequest().body(responseApi);
         }
     }
-
-    public ResponseEntity<ResponseApi>deposit(double Mount, String accountId){
-
-        return null;
-    }
-
 }
