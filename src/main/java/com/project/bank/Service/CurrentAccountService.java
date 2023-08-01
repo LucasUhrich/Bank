@@ -1,6 +1,5 @@
 package com.project.bank.Service;
 
-import com.project.bank.Dto.Request.CurrentAccountRequestDto;
 import com.project.bank.Dto.Response.CurrentAccoutResponseDto;
 import com.project.bank.Entity.Client;
 import com.project.bank.Entity.Current_Account;
@@ -18,6 +17,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static com.project.bank.Utils.AccountNumberGenerator.accountNumberGenerator;
+
 @Service
 public class CurrentAccountService {
 
@@ -30,17 +31,6 @@ public class CurrentAccountService {
         this.currentAccountRepository = currentAccountRepository;
         this.modelMapper = new ModelMapper();
     }
-
-    private String accountNumberGenerator() {
-        int length = 10;
-        StringBuilder accountNumber = new StringBuilder();
-        for (int i = 0; i < length; i++) {
-            int digit = (int) (Math.random() * 10);
-            accountNumber.append(digit);
-        }
-        return accountNumber.toString();
-    }
-
 
     public ResponseEntity<ResponseApi>createCurrentAccount(String clientId){
         ResponseApi responseApi = new ResponseApi();
