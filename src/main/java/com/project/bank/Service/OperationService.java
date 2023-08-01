@@ -57,6 +57,22 @@ public class OperationService {
         if(mount < 0) throw new ArithmeticException("Invalid mount");
     }
 
+    private Account removeMoney(Account account, double mount){
+        if (account instanceof Current_Account){
+            account.setBalance(account.getBalance()-mount);
+            return currentAccountRepository.save((Current_Account) account);
+        }
+        if (account instanceof Saving_Account){
+            account.setBalance(account.getBalance()-mount);
+            return savingAccountRepository.save((Saving_Account) account);
+        }
+        return null;
+    }
+
+    private void validateExtractMount(Account account ,double mount){
+        if (mount < 0 || mount > account.getBalance()) throw new ArithmeticException("Invalid mount");
+    }
+
     public ResponseEntity<ResponseApi> deposit(OperationRequestDto requestDto){
         ResponseApi responseApi = new ResponseApi();
         Optional<Account> account = getAccount(requestDto);
@@ -80,9 +96,32 @@ public class OperationService {
             responseApi.setData(e.getMessage());
             return ResponseEntity.badRequest().body(responseApi);
         }
-
     }
 
-    
+    public ResponseEntity<ResponseApi> extract(OperationRequestDto requestDto){
+        ResponseApi responseApi = new ResponseApi();
+        Optional<Account> account = getAccount(requestDto);
+        try {
+            if (account.isEmpty()) throw new EntityNotFoundException("Account " + requestDto.getAccount() + " not found");
+            validateExtractMount(account.get(),requestDto.getMount());
+
+            removeMoney(account.get(), requestDto.getMount());
+
+            Operation operation = modelMapper.map(requestDto,Operation.class);
+            operation.setOperation_type(OperationType.EXTRACT);
+            operation.setBank(account.get().getBranch().getBank());
+            operation.setBranch(account.get().getBranch());
+
+            responseApi.setMessage(HttpStatus.OK.toString());
+            responseApi.setMessage("Extract $"+ requestDto.getMount()+" succesfully");
+            responseApi.setData(modelMapper.map(operationRepository.save(operation), OperationResponseDto.class));
+            return ResponseEntity.ok(responseApi);
+        }catch (EntityNotFoundException | ArithmeticException e){
+            responseApi.setStatus(HttpStatus.NOT_FOUND.toString());
+            responseApi.setMessage("Error");
+            responseApi.setData(e.getMessage());
+            return ResponseEntity.badRequest().body(responseApi);
+        }
+    }
 
 }

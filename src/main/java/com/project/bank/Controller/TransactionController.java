@@ -31,4 +31,8 @@ public class TransactionController {
     public ResponseEntity<ResponseApi>deposit(@RequestBody OperationRequestDto requestDto){
         return operationService.deposit(requestDto);
     }
+    @PostMapping("/extract")
+    public ResponseEntity<ResponseApi>extract(@RequestBody OperationRequestDto requestDto){
+        return operationService.extract(requestDto);
+    }
 }
