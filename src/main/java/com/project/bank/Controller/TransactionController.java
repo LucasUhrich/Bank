@@ -27,7 +27,7 @@ public class TransactionController {
         this.operationService = operationService;
     }
 
-    @PostMapping("/transaction/transfer")
+    @PostMapping("/transfer")
     public ResponseEntity<ResponseApi>createTransaction(@RequestBody @Valid TransactionRequestDto requestDto){
         return transactionService.createTransaction(requestDto);
     }

@@ -3,17 +3,17 @@ package com.project.bank.Dto.Request;
 import com.project.bank.Enum.AccountType;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 
 public class OperationRequestDto implements Serializable {
-    @NotBlank(message = "Mount cannot be null")
+
     private double mount;
     @NotBlank(message = "Account number cannot be null")
     @Size(max = 10, message = "Invalid account number, minium 10 characters")
     private String account;
-    @NotBlank(message = "Account type cannot be null")
     private AccountType account_type;
 
     public OperationRequestDto() {

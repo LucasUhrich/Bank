@@ -3,6 +3,7 @@ package com.project.bank.Service;
 import com.project.bank.Dto.Response.CurrentAccoutResponseDto;
 import com.project.bank.Entity.Client;
 import com.project.bank.Entity.Current_Account;
+import com.project.bank.GlobalVariables.Variables;
 import com.project.bank.Repository.ClientRepository;
 import com.project.bank.Repository.CurrentAccountRepository;
 import com.project.bank.Response.ResponseApi;
@@ -38,7 +39,7 @@ public class CurrentAccountService {
 
             Current_Account account = new Current_Account();
             account.setAccount_number(accountNumberGenerator());
-            account.setBalance(0);
+            account.setBalance(Variables.BASE_BALANCE);
             account.setOpening_date(new Date());
             account.setClient(client.get());
             account.setBranch(client.get().getBranch());

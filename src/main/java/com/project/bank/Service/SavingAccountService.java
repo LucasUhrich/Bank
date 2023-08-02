@@ -4,6 +4,7 @@ import com.project.bank.Dto.Request.SavingAccountRequestDto;
 import com.project.bank.Dto.Response.SavingAccoutResponseDto;
 import com.project.bank.Entity.Client;
 import com.project.bank.Entity.Saving_Account;
+import com.project.bank.GlobalVariables.Variables;
 import com.project.bank.Repository.ClientRepository;
 import com.project.bank.Repository.SavingAccountRepository;
 import com.project.bank.Response.ResponseApi;
@@ -39,7 +40,7 @@ public class SavingAccountService {
 
             Saving_Account account = modelMapper.map(requestDto,Saving_Account.class);
             account.setAccount_number(accountNumberGenerator());
-            account.setBalance(0);
+            account.setBalance(Variables.BASE_BALANCE);
             account.setOpening_date(new Date());
             account.setClient(client.get());
             account.setBranch(client.get().getBranch());

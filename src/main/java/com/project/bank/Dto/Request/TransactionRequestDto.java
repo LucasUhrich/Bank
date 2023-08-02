@@ -3,11 +3,11 @@ package com.project.bank.Dto.Request;
 import com.project.bank.Enum.AccountType;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 public class TransactionRequestDto implements Serializable {
-    @NotBlank(message = "Balance cannot be null")
     private double balance;
     @NotBlank(message = "Account number cannot be null")
     @Size(max = 10, message = "Invalid account number, minium 10 characters")
