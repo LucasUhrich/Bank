@@ -7,10 +7,14 @@ import com.project.bank.Service.ClientService;
 import com.project.bank.Service.EmployeeService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/bank")
+@Validated
 public class EmployeeController {
 
     private EmployeeService employeeService;
@@ -22,7 +26,7 @@ public class EmployeeController {
     }
 
     @PostMapping("/{branchId}/createEmployee")
-    public ResponseEntity<ResponseApi> createEmployee(@PathVariable("branchId") String branchId, @RequestBody EmployeeRequestDto requestDto){
+    public ResponseEntity<ResponseApi> createEmployee(@PathVariable("branchId") String branchId, @Valid @RequestBody EmployeeRequestDto requestDto){
         return employeeService.createEmployee(branchId, requestDto);
     }
 

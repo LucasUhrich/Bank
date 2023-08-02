@@ -17,10 +17,13 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.EntityNotFoundException;
+import javax.validation.Valid;
 import java.util.Optional;
 @Service
+@Validated
 public class OperationService {
     private CurrentAccountRepository currentAccountRepository;
     private SavingAccountRepository savingAccountRepository;
@@ -73,7 +76,7 @@ public class OperationService {
         if (mount < 0 || mount > account.getBalance()) throw new ArithmeticException("Invalid mount");
     }
 
-    public ResponseEntity<ResponseApi> deposit(OperationRequestDto requestDto){
+    public ResponseEntity<ResponseApi> deposit(@Valid OperationRequestDto requestDto){
         ResponseApi responseApi = new ResponseApi();
         Optional<Account> account = getAccount(requestDto);
         try {
@@ -98,7 +101,7 @@ public class OperationService {
         }
     }
 
-    public ResponseEntity<ResponseApi> extract(OperationRequestDto requestDto){
+    public ResponseEntity<ResponseApi> extract(@Valid OperationRequestDto requestDto){
         ResponseApi responseApi = new ResponseApi();
         Optional<Account> account = getAccount(requestDto);
         try {

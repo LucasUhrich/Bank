@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 public class BankRequestDto implements Serializable {
     @NotBlank(message = "Name cannot be null")
-    @Size(min = 3, message = "Invalid name")
+    @Size(min = 3, message = "Invalid name, minimum 3 characters")
     private String name;
 
     public BankRequestDto(String name) {

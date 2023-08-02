@@ -1,10 +1,13 @@
 package com.project.bank.Dto.Request;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 public class SavingAccountRequestDto implements Serializable {
-
-    private  double interest_rate;
+    @NotBlank(message = "Interest rate cannot be null")
+    @Size(max = 100, message = "Max rate 100")
+    private double interest_rate;
 
     public SavingAccountRequestDto() {
     }

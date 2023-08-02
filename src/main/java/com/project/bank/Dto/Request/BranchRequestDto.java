@@ -1,10 +1,18 @@
 package com.project.bank.Dto.Request;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 public class BranchRequestDto implements Serializable {
+    @NotBlank(message = "Name cannot be null")
+    @Size(min = 2, max = 30, message = "Invalid name, minimum 3 characters, maxium 30")
     private String country;
+    @NotBlank(message = "Name cannot be null")
+    @Size(min = 2, max = 30, message = "Invalid name, minimum 3 characters, maxium 30")
     private String province;
+    @NotBlank(message = "Name cannot be null")
+    @Size(min = 2, max = 30, message = "Invalid name, minimum 3 characters, maxium 30")
     private String city;
 
     public BranchRequestDto(String country, String province, String city) {

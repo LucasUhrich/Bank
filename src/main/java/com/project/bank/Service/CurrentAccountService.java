@@ -10,6 +10,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.Date;
@@ -20,6 +21,7 @@ import java.util.stream.Collectors;
 import static com.project.bank.Utils.AccountNumberGenerator.accountNumberGenerator;
 
 @Service
+@Validated
 public class CurrentAccountService {
 
     private ClientRepository clientRepository;

@@ -3,19 +3,35 @@ package com.project.bank.Dto.Request;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.project.bank.Enum.JobTitle;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
 
 public class EmployeeRequestDto implements Serializable {
+    @NotBlank(message = "Name cannot be null")
+    @Size(min = 2, max = 30, message = "Invalid name, minimum 2 characters, maximum 30")
     private  String name;
+    @NotBlank(message = "Surname cannot be null")
+    @Size(min = 2, max = 30, message = "Invalid surname, minimum 2 characters, maximum 30")
     private  String surname;
+    @Email(message = "Invalid email")
     private  String email;
+    @NotBlank(message = "Password cannot be null")
+    @Size(min = 6, max = 30, message = "Invalid password, minimum 6 characters, maximum 30")
     private  String password;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private  Date birth_date;
+    @NotBlank(message = "Address cannot be null")
+    @Size(min = 5, max = 50, message = "Invalid address, minium 5 characters ,maximum 50 characters")
     private  String address;
+    @NotBlank(message = "Phone cannot be null")
+    @Size(max = 10, message = "Invalid phone number, maximum 10 characters")
     private  String phone;
     private  Date registration;
+    @NotNull(message = "Cargo cannot be null")
     private  JobTitle cargo;
 
     public EmployeeRequestDto(String name, String surname, String email, String password, Date birth_date, String address, String phone, Date registration, JobTitle cargo) {

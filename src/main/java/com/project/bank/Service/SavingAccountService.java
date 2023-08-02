@@ -1,29 +1,28 @@
 package com.project.bank.Service;
 
 import com.project.bank.Dto.Request.SavingAccountRequestDto;
-import com.project.bank.Dto.Response.CurrentAccoutResponseDto;
 import com.project.bank.Dto.Response.SavingAccoutResponseDto;
 import com.project.bank.Entity.Client;
-import com.project.bank.Entity.Current_Account;
 import com.project.bank.Entity.Saving_Account;
 import com.project.bank.Repository.ClientRepository;
 import com.project.bank.Repository.SavingAccountRepository;
 import com.project.bank.Response.ResponseApi;
-import com.project.bank.Utils.AccountNumberGenerator;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.EntityNotFoundException;
+import javax.validation.Valid;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
 import static com.project.bank.Utils.AccountNumberGenerator.accountNumberGenerator;
 
 @Service
+@Validated
 public class SavingAccountService {
 
     private SavingAccountRepository savingAccountRepository;
@@ -36,7 +35,7 @@ public class SavingAccountService {
         this.clientRepository = clientRepository;
     }
 
-    public ResponseEntity<ResponseApi> createSavingAccount(String clientId, SavingAccountRequestDto requestDto){
+    public ResponseEntity<ResponseApi> createSavingAccount(String clientId,@Valid SavingAccountRequestDto requestDto){
         ResponseApi responseApi = new ResponseApi();
         Optional<Client> client = clientRepository.findById(clientId);
         try {
