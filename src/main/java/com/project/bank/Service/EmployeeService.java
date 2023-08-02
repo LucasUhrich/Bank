@@ -1,11 +1,7 @@
 package com.project.bank.Service;
 
-import com.project.bank.Dto.Request.BankRequestDto;
 import com.project.bank.Dto.Request.EmployeeRequestDto;
-import com.project.bank.Dto.Response.BankResponseDto;
-import com.project.bank.Dto.Response.BranchResponseDto;
 import com.project.bank.Dto.Response.EmployeeResponseDto;
-import com.project.bank.Entity.Bank;
 import com.project.bank.Entity.Branch;
 import com.project.bank.Entity.Employee;
 import com.project.bank.Enum.Rol;
@@ -17,17 +13,13 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
-
 import javax.persistence.EntityNotFoundException;
-import javax.validation.Valid;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-@Validated
 public class EmployeeService {
 
     private EmployeeRepository employeeRepository;
@@ -40,7 +32,7 @@ public class EmployeeService {
         this.branchRepository = branchRepository;
     }
 
-    public ResponseEntity<ResponseApi> createEmployee(String branchId, @Valid EmployeeRequestDto employeeRequestDto){
+    public ResponseEntity<ResponseApi> createEmployee(String branchId, EmployeeRequestDto employeeRequestDto){
         ResponseApi responseApi = new ResponseApi();
         Optional<Employee> existEmployee = Optional.ofNullable(employeeRepository.findByEmail(employeeRequestDto.getEmail()));
         Optional<Branch> branch = branchRepository.findById(branchId);

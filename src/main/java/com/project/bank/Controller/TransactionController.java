@@ -7,12 +7,16 @@ import com.project.bank.Service.OperationService;
 import com.project.bank.Service.TransactionService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.validation.Valid;
+
 @Controller
 @RequestMapping("/bank/transaction")
+@Validated
 public class TransactionController {
 
     private TransactionService transactionService;
@@ -24,15 +28,15 @@ public class TransactionController {
     }
 
     @PostMapping("/transaction/transfer")
-    public ResponseEntity<ResponseApi>createTransaction(@RequestBody TransactionRequestDto requestDto){
+    public ResponseEntity<ResponseApi>createTransaction(@RequestBody @Valid TransactionRequestDto requestDto){
         return transactionService.createTransaction(requestDto);
     }
     @PostMapping("/deposit")
-    public ResponseEntity<ResponseApi>deposit(@RequestBody OperationRequestDto requestDto){
+    public ResponseEntity<ResponseApi>deposit(@RequestBody @Valid OperationRequestDto requestDto){
         return operationService.deposit(requestDto);
     }
     @PostMapping("/extract")
-    public ResponseEntity<ResponseApi>extract(@RequestBody OperationRequestDto requestDto){
+    public ResponseEntity<ResponseApi>extract(@RequestBody @Valid OperationRequestDto requestDto){
         return operationService.extract(requestDto);
     }
 }

@@ -8,7 +8,6 @@ import com.project.bank.Entity.Operation;
 import com.project.bank.Entity.Saving_Account;
 import com.project.bank.Enum.AccountType;
 import com.project.bank.Enum.OperationType;
-import com.project.bank.Repository.ClientRepository;
 import com.project.bank.Repository.CurrentAccountRepository;
 import com.project.bank.Repository.OperationRepository;
 import com.project.bank.Repository.SavingAccountRepository;
@@ -17,13 +16,10 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
-
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 import java.util.Optional;
 @Service
-@Validated
 public class OperationService {
     private CurrentAccountRepository currentAccountRepository;
     private SavingAccountRepository savingAccountRepository;
@@ -101,7 +97,7 @@ public class OperationService {
         }
     }
 
-    public ResponseEntity<ResponseApi> extract(@Valid OperationRequestDto requestDto){
+    public ResponseEntity<ResponseApi> extract( OperationRequestDto requestDto){
         ResponseApi responseApi = new ResponseApi();
         Optional<Account> account = getAccount(requestDto);
         try {

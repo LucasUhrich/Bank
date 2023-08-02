@@ -5,10 +5,14 @@ import com.project.bank.Response.ResponseApi;
 import com.project.bank.Service.BrachService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/bank")
+@Validated
 public class BranchController {
 
     private BrachService brachService;
@@ -18,7 +22,7 @@ public class BranchController {
     }
 
     @PostMapping("/{name}/createbranch")
-    public ResponseEntity<ResponseApi> crateBranch(@PathVariable("name") String bankName, @RequestBody BranchRequestDto requestDto){
+    public ResponseEntity<ResponseApi> crateBranch(@PathVariable("name") String bankName, @RequestBody @Valid BranchRequestDto requestDto){
         return brachService.createBranch(bankName,requestDto);
     }
 

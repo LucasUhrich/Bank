@@ -1,25 +1,19 @@
 package com.project.bank.Service;
 
-import com.project.bank.Dto.Request.OperationRequestDto;
 import com.project.bank.Dto.Request.TransactionRequestDto;
 import com.project.bank.Dto.Response.TransactionResponseDto;
 import com.project.bank.Entity.*;
 import com.project.bank.Enum.AccountType;
-import com.project.bank.Enum.OperationType;
 import com.project.bank.Repository.*;
 import com.project.bank.Response.ResponseApi;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
-
 import javax.persistence.EntityNotFoundException;
-import javax.validation.Valid;
 import java.util.Optional;
 
 @Service
-@Validated
 public class TransactionService {
 
     private TransactionRepository transactionRepository;
@@ -78,7 +72,7 @@ public class TransactionService {
         }
     }
 
-    public ResponseEntity<ResponseApi> createTransaction(@Valid TransactionRequestDto requestDto){
+    public ResponseEntity<ResponseApi> createTransaction( TransactionRequestDto requestDto){
         ResponseApi responseApi = new ResponseApi();
         Optional<Account> sender = getSenderAccount(requestDto);
         Optional<Account> receiver = getReceiverAccount(requestDto);

@@ -11,10 +11,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
-
 import javax.persistence.EntityNotFoundException;
-import javax.validation.Valid;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -22,7 +19,6 @@ import java.util.stream.Collectors;
 import static com.project.bank.Utils.AccountNumberGenerator.accountNumberGenerator;
 
 @Service
-@Validated
 public class SavingAccountService {
 
     private SavingAccountRepository savingAccountRepository;
@@ -35,7 +31,7 @@ public class SavingAccountService {
         this.clientRepository = clientRepository;
     }
 
-    public ResponseEntity<ResponseApi> createSavingAccount(String clientId,@Valid SavingAccountRequestDto requestDto){
+    public ResponseEntity<ResponseApi> createSavingAccount(String clientId, SavingAccountRequestDto requestDto){
         ResponseApi responseApi = new ResponseApi();
         Optional<Client> client = clientRepository.findById(clientId);
         try {

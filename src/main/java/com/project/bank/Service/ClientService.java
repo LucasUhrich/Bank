@@ -1,10 +1,7 @@
 package com.project.bank.Service;
 
 import com.project.bank.Dto.Request.ClientRequestDto;
-import com.project.bank.Dto.Request.EmployeeRequestDto;
 import com.project.bank.Dto.Response.ClientResponseDto;
-import com.project.bank.Dto.Response.CurrentAccoutResponseDto;
-import com.project.bank.Dto.Response.EmployeeResponseDto;
 import com.project.bank.Entity.*;
 import com.project.bank.Enum.Rol;
 import com.project.bank.Repository.*;
@@ -14,17 +11,13 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
-
 import javax.persistence.EntityNotFoundException;
-import javax.validation.Valid;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-@Validated
 public class ClientService {
 
     private EmployeeRepository employeeRepository;
@@ -43,7 +36,7 @@ public class ClientService {
         this.savingAccountRepository = savingAccountRepository;
     }
 
-    public ResponseEntity<ResponseApi> createClient(String employeeId, @Valid ClientRequestDto clientRequestDto){
+    public ResponseEntity<ResponseApi> createClient(String employeeId, ClientRequestDto clientRequestDto){
         ResponseApi responseApi = new ResponseApi();
         Optional<Client> existClient = Optional.ofNullable(clientRepository.findByEmail(clientRequestDto.getEmail()));
         Optional<Employee> employee = employeeRepository.findById(employeeId);

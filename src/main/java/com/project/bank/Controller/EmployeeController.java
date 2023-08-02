@@ -36,7 +36,7 @@ public class EmployeeController {
     }
 
     @PostMapping("/{employeeId}/createClient")
-    public ResponseEntity<ResponseApi> createClient(@PathVariable("employeeId") String id, @RequestBody ClientRequestDto requestDto){
+    public ResponseEntity<ResponseApi> createClient(@PathVariable("employeeId") String id, @RequestBody @Valid ClientRequestDto requestDto){
         return clientService.createClient(id,requestDto);
     }
 }

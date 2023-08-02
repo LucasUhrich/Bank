@@ -10,15 +10,11 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-@Validated
 public class BankService {
 
     private BankRepository bankRepository;
@@ -29,7 +25,7 @@ public class BankService {
         this.modelMapper = new ModelMapper();
     }
 
-    public ResponseEntity<ResponseApi> createBank(@Valid BankRequestDto requestDto){
+    public ResponseEntity<ResponseApi> createBank(BankRequestDto requestDto){
         ResponseApi responseApi = new ResponseApi();
         Optional<Bank> existBank = Optional.ofNullable(bankRepository.findByName(requestDto.getName()));
         try {
