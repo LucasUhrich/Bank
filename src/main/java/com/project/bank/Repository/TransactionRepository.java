@@ -1,10 +1,9 @@
 package com.project.bank.Repository;
 
-import com.project.bank.Entity.Bank;
+import com.project.bank.Entity.Transaction;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface BankRepository extends JpaRepository<Bank,String> {
-    Bank findByName(String name);
+public interface TransactionRepository extends JpaRepository<Transaction,String> {
 }
