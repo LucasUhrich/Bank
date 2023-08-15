@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -27,15 +28,15 @@ public class TransactionController {
         this.operationService = operationService;
     }
 
-    @PostMapping("/transfer")
+    @PutMapping("/transfer")
     public ResponseEntity<ResponseApi>createTransaction(@RequestBody @Valid TransactionRequestDto requestDto){
         return transactionService.createTransaction(requestDto);
     }
-    @PostMapping("/deposit")
+    @PutMapping("/deposit")
     public ResponseEntity<ResponseApi>deposit(@RequestBody @Valid OperationRequestDto requestDto){
         return operationService.deposit(requestDto);
     }
-    @PostMapping("/extract")
+    @PutMapping("/extract")
     public ResponseEntity<ResponseApi>extract(@RequestBody @Valid OperationRequestDto requestDto){
         return operationService.extract(requestDto);
     }
